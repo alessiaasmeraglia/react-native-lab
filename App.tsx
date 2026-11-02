@@ -11,6 +11,20 @@ export default function App() {
 
       <Text style={styles.name}>Alex Morgan</Text>
       <Text style={styles.role}>Frontend Developer</Text>
+
+
+      <View style={styles.statsContainer}>
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>12</Text>
+          <Text style={styles.statLabel}>Projects</Text>
+        </View>
+
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>8</Text>
+          <Text style={styles.statLabel}>Skills</Text>
+        </View>
+      </View>
+
     </View>
 
   );
@@ -50,4 +64,32 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#77788B",
   },
+
+
+  statsContainer: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 32,
+  },
+
+  statCard: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    padding: 20,
+    borderRadius: 16,
+    alignItems: "center",
+    gap: 4,
+  },
+
+  statNumber: {
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#23243A",
+  },
+
+  statLabel: {
+    fontSize: 14,
+    color: "#77788B",
+  },
+
 });
