@@ -1,5 +1,5 @@
-
 import { View, Text, StyleSheet } from "react-native";
+import StatCard from "./components/StatCard";
 
 export default function App() {
   return (
@@ -12,17 +12,9 @@ export default function App() {
       <Text style={styles.name}>Alex Morgan</Text>
       <Text style={styles.role}>Frontend Developer</Text>
 
-
       <View style={styles.statsContainer}>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>12</Text>
-          <Text style={styles.statLabel}>Projects</Text>
-        </View>
-
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>8</Text>
-          <Text style={styles.statLabel}>Skills</Text>
-        </View>
+        <StatCard value={12} label="Projects" />
+        <StatCard value={8} label="Skills" />
       </View>
 
     </View>
