@@ -6,6 +6,28 @@ export default function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("Alex Morgan");
   const [draftName, setDraftName] = useState("Alex Morgan");
+
+  const handleEdit = () => {
+    setDraftName(name);
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    const trimmedName = draftName.trim();
+
+    if (!trimmedName) {
+      return;
+    }
+
+    setName(trimmedName);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setDraftName(name);
+    setIsEditing(false);
+  };
+
   return (
 
     <View style={styles.profile}>
@@ -22,14 +44,17 @@ export default function App() {
       </View>
 
 
-      <Pressable
-        style={styles.editButton}
-        onPress={() => setIsEditing(!isEditing)}
-      >
-        <Text style={styles.editButtonText}>
-          {isEditing ? "Cancel editing" : "Edit profile"}
-        </Text>
-      </Pressable>
+      {!isEditing && (
+        <Pressable
+          style={styles.editButton}
+          onPress={handleEdit}
+          accessibilityRole="button"
+        >
+          <Text style={styles.editButtonText}>
+            Edit profile
+          </Text>
+        </Pressable>
+      )}
 
 
       {isEditing && (
@@ -45,6 +70,29 @@ export default function App() {
             placeholder="Enter your name"
             autoCapitalize="words"
           />
+
+          <View style={styles.formActions}>
+            <Pressable
+              style={[styles.actionButton, styles.cancelButton]}
+              onPress={handleCancel}
+              accessibilityRole="button"
+            >
+              <Text style={styles.cancelButtonText}>
+                Cancel
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={[styles.actionButton, styles.saveButton]}
+              onPress={handleSave}
+              accessibilityRole="button"
+            >
+              <Text style={styles.saveButtonText}>
+                Save
+              </Text>
+            </Pressable>
+          </View>
+
         </View>
       )}
 
@@ -161,5 +209,40 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#23243A",
   },
+
+
+  formActions: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 12,
+  },
+
+  actionButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+
+  cancelButton: {
+    backgroundColor: "#E8E8EF",
+  },
+
+  saveButton: {
+    backgroundColor: "#7047EB",
+  },
+
+  cancelButtonText: {
+    color: "#23243A",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+
+  saveButtonText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+
 
 });
