@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
 import StatCard from "./components/StatCard";
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState("Alex Morgan");
+  const [draftName, setDraftName] = useState("Alex Morgan");
   return (
 
     <View style={styles.profile}>
@@ -11,7 +13,7 @@ export default function App() {
         <Text style={styles.avatarText}>AM</Text>
       </View>
 
-      <Text style={styles.name}>Alex Morgan</Text>
+      <Text style={styles.name}>{name}</Text>
       <Text style={styles.role}>Frontend Developer</Text>
 
       <View style={styles.statsContainer}>
@@ -29,11 +31,23 @@ export default function App() {
         </Text>
       </Pressable>
 
+
       {isEditing && (
-        <Text style={styles.editMessage}>
-          Editing mode enabled!
-        </Text>
+        <View style={styles.form}>
+          <Text style={styles.inputLabel}>
+            Your name
+          </Text>
+
+          <TextInput
+            style={styles.input}
+            value={draftName}
+            onChangeText={setDraftName}
+            placeholder="Enter your name"
+            autoCapitalize="words"
+          />
+        </View>
       )}
+
 
 
     </View>
@@ -125,5 +139,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
+
+  form: {
+    marginTop: 16,
+    gap: 8,
+  },
+
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#23243A",
+  },
+
+  input: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#D8D8E2",
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    fontSize: 16,
+    color: "#23243A",
+  },
 
 });
