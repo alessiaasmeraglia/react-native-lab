@@ -6,9 +6,11 @@ export default function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("Alex Morgan");
   const [draftName, setDraftName] = useState("Alex Morgan");
+  const [nameError, setNameError] = useState("");
 
   const handleEdit = () => {
     setDraftName(name);
+    setNameError("");
     setIsEditing(true);
   };
 
@@ -16,15 +18,18 @@ export default function App() {
     const trimmedName = draftName.trim();
 
     if (!trimmedName) {
+      setNameError("Name is required.");
       return;
     }
 
     setName(trimmedName);
+    setNameError("");
     setIsEditing(false);
   };
 
   const handleCancel = () => {
     setDraftName(name);
+    setNameError("");
     setIsEditing(false);
   };
 
@@ -64,12 +69,25 @@ export default function App() {
           </Text>
 
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              nameError ? styles.inputError : null,
+            ]}
             value={draftName}
-            onChangeText={setDraftName}
+            onChangeText={(text) => {
+              setDraftName(text);
+              setNameError("");
+            }}
             placeholder="Enter your name"
             autoCapitalize="words"
+            accessibilityLabel="Your name"
           />
+
+          {nameError !== "" && (
+            <Text style={styles.errorText}>
+              {nameError}
+            </Text>
+          )}
 
           <View style={styles.formActions}>
             <Pressable
@@ -244,5 +262,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
+  inputError: {
+    borderColor: "#D93025",
+  },
 
+  errorText: {
+    fontSize: 13,
+    color: "#D93025",
+    marginTop: 4,
+  },
 });
