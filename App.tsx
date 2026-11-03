@@ -10,6 +10,7 @@ import {
 } from "./theme/tokens";
 import Button from "./components/Button";
 import Card from "./components/Card";
+import { useWindowDimensions } from "react-native";
 
 
 export default function App() {
@@ -43,6 +44,10 @@ export default function App() {
     setIsEditing(false);
   };
 
+  const { width } = useWindowDimensions();
+
+  const isSmallScreen = width < 360;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
@@ -57,7 +62,12 @@ export default function App() {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.role}>Frontend Developer</Text>
 
-          <View style={styles.statsContainer}>
+          <View
+            style={[
+              styles.statsContainer,
+              isSmallScreen && styles.statsContainerSmall,
+            ]}
+          >
             <StatCard value={12} label="Projects" />
             <StatCard value={8} label="Skills" />
           </View>
@@ -181,6 +191,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
     marginTop: 32,
+  },
+
+  statsContainerSmall: {
+    flexDirection: "column",
+    alignItems: "stretch",
   },
 
   statCard: {

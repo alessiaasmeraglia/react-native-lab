@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { colors, radius, spacing } from "../theme/tokens";
 
 type StatCardProps = {
     value: number;
@@ -20,11 +21,12 @@ export default function StatCard({
 const styles = StyleSheet.create({
     card: {
         flex: 1,
-        backgroundColor: "#FFFFFF",
-        padding: 20,
-        borderRadius: 16,
+        minWidth: 0,
+        backgroundColor: colors.surface,
+        padding: spacing.lg,
+        borderRadius: radius.lg,
         alignItems: "center",
-        gap: 4,
+        gap: spacing.xs,
     },
 
     number: {
