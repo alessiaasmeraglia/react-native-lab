@@ -8,6 +8,7 @@ import {
   typography,
 } from "./theme/tokens";
 import Button from "./components/Button";
+import Card from "./components/Card";
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -55,6 +56,16 @@ export default function App() {
         <StatCard value={8} label="Skills" />
       </View>
 
+      <Card>
+        <Text style={styles.sectionTitle}>
+          About me
+        </Text>
+
+        <Text style={styles.description}>
+          Frontend developer passionate about
+          building intuitive mobile experiences.
+        </Text>
+      </Card>
 
       {!isEditing && (
         <Button
@@ -276,4 +287,19 @@ const styles = StyleSheet.create({
   actionContainer: {
     flex: 1,
   },
+
+
+  sectionTitle: {
+    fontSize: typography.subtitle,
+    fontWeight: "700",
+    color: colors.text,
+    marginBottom: spacing.sm,
+  },
+
+  description: {
+    fontSize: typography.body,
+    color: colors.textSecondary,
+    lineHeight: 24,
+  },
+
 });
