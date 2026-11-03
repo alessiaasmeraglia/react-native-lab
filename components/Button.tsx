@@ -6,22 +6,29 @@ type ButtonProps = {
     title: string;
     variant?: "primary" | "secondary";
     onPress: () => void;
+    disabled?: boolean;
 };
 
 export default function Button({
     title,
     variant = "primary",
     onPress,
+    disabled = false,
 }: ButtonProps) {
+
     const isPrimary = variant === "primary";
 
     return (
         <Pressable
             onPress={onPress}
+            disabled={disabled}
             accessibilityRole="button"
-            style={[
+            accessibilityState={{ disabled }}
+            style={({ pressed }) => [
                 styles.button,
                 isPrimary ? styles.primary : styles.secondary,
+                pressed && !disabled && styles.pressed,
+                disabled && styles.disabled,
             ]}
         >
             <Text
@@ -69,4 +76,14 @@ const styles = StyleSheet.create({
     secondaryText: {
         color: colors.primary,
     },
+
+    pressed: {
+        opacity: 0.7,
+        transform: [{ scale: 0.98 }],
+    },
+
+    disabled: {
+        opacity: 0.4,
+    },
+
 });

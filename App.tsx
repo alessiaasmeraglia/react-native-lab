@@ -106,6 +106,7 @@ export default function App() {
                 title="Save"
                 variant="primary"
                 onPress={handleSave}
+                disabled={!draftName.trim()}
               />
             </View>
           </View>
