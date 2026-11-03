@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import StatCard from "./components/StatCard";
 import {
   colors,
@@ -9,6 +10,7 @@ import {
 } from "./theme/tokens";
 import Button from "./components/Button";
 import Card from "./components/Card";
+
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -42,98 +44,104 @@ export default function App() {
   };
 
   return (
-
-    <View style={styles.profile}>
-      <View style={styles.avatar}>
-        <Text style={styles.avatarText}>AM</Text>
-      </View>
-
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.role}>Frontend Developer</Text>
-
-      <View style={styles.statsContainer}>
-        <StatCard value={12} label="Projects" />
-        <StatCard value={8} label="Skills" />
-      </View>
-
-      <Card>
-        <Text style={styles.sectionTitle}>
-          About me
-        </Text>
-
-        <Text style={styles.description}>
-          Frontend developer passionate about
-          building intuitive mobile experiences.
-        </Text>
-      </Card>
-
-      {!isEditing && (
-        <Button
-          title="Edit profile"
-          onPress={handleEdit}
-        />
-      )}
-
-
-      {isEditing && (
-        <View style={styles.form}>
-          <Text style={styles.inputLabel}>
-            Your name
-          </Text>
-
-          <TextInput
-            style={[
-              styles.input,
-              nameError ? styles.inputError : null,
-            ]}
-            value={draftName}
-            onChangeText={(text) => {
-              setDraftName(text);
-              setNameError("");
-            }}
-            placeholder="Enter your name"
-            autoCapitalize="words"
-            accessibilityLabel="Your name"
-          />
-
-          {nameError !== "" && (
-            <Text style={styles.errorText}>
-              {nameError}
-            </Text>
-          )}
-
-
-          <View style={styles.formActions}>
-            <View style={styles.actionContainer}>
-              <Button
-                title="Cancel"
-                variant="secondary"
-                onPress={handleCancel}
-              />
-            </View>
-
-            <View style={styles.actionContainer}>
-              <Button
-                title="Save"
-                variant="primary"
-                onPress={handleSave}
-                disabled={!draftName.trim()}
-              />
-            </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.profile}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>AM</Text>
           </View>
 
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.role}>Frontend Developer</Text>
 
+          <View style={styles.statsContainer}>
+            <StatCard value={12} label="Projects" />
+            <StatCard value={8} label="Skills" />
+          </View>
+
+          <Card>
+            <Text style={styles.sectionTitle}>
+              About me
+            </Text>
+
+            <Text style={styles.description}>
+              Frontend developer passionate about
+              building intuitive mobile experiences.
+            </Text>
+          </Card>
+
+          {!isEditing && (
+            <Button
+              title="Edit profile"
+              onPress={handleEdit}
+            />
+          )}
+
+          {isEditing && (
+            <View style={styles.form}>
+              <Text style={styles.inputLabel}>
+                Your name
+              </Text>
+
+              <TextInput
+                style={[
+                  styles.input,
+                  nameError ? styles.inputError : null,
+                ]}
+                value={draftName}
+                onChangeText={(text) => {
+                  setDraftName(text);
+                  setNameError("");
+                }}
+                placeholder="Enter your name"
+                autoCapitalize="words"
+                accessibilityLabel="Your name"
+              />
+
+              {nameError !== "" && (
+                <Text style={styles.errorText}>
+                  {nameError}
+                </Text>
+              )}
+
+              <View style={styles.formActions}>
+                <View style={styles.actionContainer}>
+                  <Button
+                    title="Cancel"
+                    variant="secondary"
+                    onPress={handleCancel}
+                  />
+                </View>
+
+                <View style={styles.actionContainer}>
+                  <Button
+                    title="Save"
+                    variant="primary"
+                    onPress={handleSave}
+                    disabled={!draftName.trim()}
+                  />
+                </View>
+              </View>
+            </View>
+          )}
         </View>
-      )}
-
-
-
-    </View>
-
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
+  container: {
+    flexGrow: 1,
+    backgroundColor: colors.background,
+    padding: spacing.xl,
+    paddingBottom: spacing.xxl,
+  },
+
 
   profile: {
     alignItems: "center",
@@ -300,6 +308,12 @@ const styles = StyleSheet.create({
     fontSize: typography.body,
     color: colors.textSecondary,
     lineHeight: 24,
+  },
+
+
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
   },
 
 });
