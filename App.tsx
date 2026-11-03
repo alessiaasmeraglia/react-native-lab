@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
 import StatCard from "./components/StatCard";
+import {
+  colors,
+  spacing,
+  radius,
+  typography,
+} from "./theme/tokens";
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -185,11 +191,11 @@ const styles = StyleSheet.create({
 
 
   editButton: {
-    backgroundColor: "#7047EB",
-    padding: 16,
-    borderRadius: 12,
+    backgroundColor: colors.primary,
+    padding: spacing.lg,
+    borderRadius: radius.md,
     alignItems: "center",
-    marginTop: 24,
+    marginTop: spacing.xl,
   },
 
   editButtonText: {
