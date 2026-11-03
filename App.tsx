@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import StatCard from "./components/StatCard";
 
 export default function App() {
+  const [isEditing, setIsEditing] = useState(false);
   return (
 
     <View style={styles.profile}>
@@ -16,6 +18,23 @@ export default function App() {
         <StatCard value={12} label="Projects" />
         <StatCard value={8} label="Skills" />
       </View>
+
+
+      <Pressable
+        style={styles.editButton}
+        onPress={() => setIsEditing(!isEditing)}
+      >
+        <Text style={styles.editButtonText}>
+          {isEditing ? "Cancel editing" : "Edit profile"}
+        </Text>
+      </Pressable>
+
+      {isEditing && (
+        <Text style={styles.editMessage}>
+          Editing mode enabled!
+        </Text>
+      )}
+
 
     </View>
 
@@ -83,5 +102,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#77788B",
   },
+
+
+  editButton: {
+    backgroundColor: "#7047EB",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    marginTop: 24,
+  },
+
+  editButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  editMessage: {
+    marginTop: 16,
+    fontSize: 14,
+    color: "#7047EB",
+    textAlign: "center",
+  },
+
 
 });
