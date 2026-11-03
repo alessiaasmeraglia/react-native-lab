@@ -7,6 +7,7 @@ import {
   radius,
   typography,
 } from "./theme/tokens";
+import Button from "./components/Button";
 
 export default function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -56,15 +57,10 @@ export default function App() {
 
 
       {!isEditing && (
-        <Pressable
-          style={styles.editButton}
+        <Button
+          title="Edit profile"
           onPress={handleEdit}
-          accessibilityRole="button"
-        >
-          <Text style={styles.editButtonText}>
-            Edit profile
-          </Text>
-        </Pressable>
+        />
       )}
 
 
@@ -95,27 +91,25 @@ export default function App() {
             </Text>
           )}
 
-          <View style={styles.formActions}>
-            <Pressable
-              style={[styles.actionButton, styles.cancelButton]}
-              onPress={handleCancel}
-              accessibilityRole="button"
-            >
-              <Text style={styles.cancelButtonText}>
-                Cancel
-              </Text>
-            </Pressable>
 
-            <Pressable
-              style={[styles.actionButton, styles.saveButton]}
-              onPress={handleSave}
-              accessibilityRole="button"
-            >
-              <Text style={styles.saveButtonText}>
-                Save
-              </Text>
-            </Pressable>
+          <View style={styles.formActions}>
+            <View style={styles.actionContainer}>
+              <Button
+                title="Cancel"
+                variant="secondary"
+                onPress={handleCancel}
+              />
+            </View>
+
+            <View style={styles.actionContainer}>
+              <Button
+                title="Save"
+                variant="primary"
+                onPress={handleSave}
+              />
+            </View>
           </View>
+
 
         </View>
       )}
@@ -276,5 +270,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#D93025",
     marginTop: 4,
+  },
+
+  actionContainer: {
+    flex: 1,
   },
 });
